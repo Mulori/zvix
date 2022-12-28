@@ -1,0 +1,35 @@
+html {
+    height: 100%;
+}
+
+body{
+    background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    height: 100vh;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+}
+
+#col-form{
+    height: 100vh;
+    max-height: 100vh; 
+    min-height: 100vh;
+}
+
+.img-logo {
+    width: 250px;
+    height: 250px;
+}
+
+.container-entrada{
+    background-color: green;
+}
+
+.btn-login{
+    background-color: transparent;
+    border-color: white;
+}
+
+#link-powered{
+    text-decoration: none;
+}
