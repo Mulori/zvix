@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
-import logo from "../../img/zvix-logo-white.svg";
+import logo from "../../img/zvix-logo-color.svg";
 import validaCpfCnpj from "../../libs/ValidaCPFCNPJ";
 import {Navigate, useNavigate} from 'react-router-dom';
 import IsAuthenticated from "../../libs/Auth";
@@ -64,11 +64,11 @@ function Login() {
     <div className="container-fluid body-login">
       <div className="row" id="col-form">
         <div className="col d-none d-md-block col-left"></div>
-        <div className="col d-flex flex-column">
+        <div className="col d-flex flex-column col-form-login">
           <div className="d-flex justify-content-between mx-auto">
             <img className="img-logo" src={logo} />
           </div>
-          <div className="container-form mx-auto w-100 p-5">
+          <div className="container-form mx-auto w-100 p-5 h-50">
             <form onSubmit={handleSubmit} method="POST">
               <div className="form-group">
                 {!error ? null : (
@@ -76,7 +76,7 @@ function Login() {
                     {message}
                   </div>
                 )}
-                <label id="title-form-login" className="text-light">
+                <label id="title-form-login" style={{color: '#043f69', fontWeight: 'bold'}}>
                   Acesso ao Painel
                 </label>
                 <input
@@ -119,7 +119,7 @@ function Login() {
               <div className="row h-100">
                 <div className="col w-100 mt-3">
                   <button
-                    className="btn btn-primary w-100 btn-login"
+                    className="btn w-100 btn-login"
                     type="submit"
                   >
                     Acessar
@@ -128,10 +128,10 @@ function Login() {
               </div>
             </form>
           </div>
-          <div className="footer mx-auto p-1 text-light">
-            © 2022 rcrinfo.com.br - Powered by:{" "}
-            <a href="http://rcrinfo.com.br">
-              <strong className="text-light" id="link-powered">
+          <div className="footer mx-auto p-1" style={{color: '#6c7489'}}>
+            © 2022 mgtech.com.br - Powered by:{" "}
+            <a href="http://mgtech.com.br">
+              <strong id="link-powered" style={{color: '#6c7489'}}>
                 MG Tech
               </strong>
             </a>

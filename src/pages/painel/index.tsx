@@ -51,9 +51,7 @@ function Painel(){
             </div>
         </nav>
         <div id="content" className="bg-light" >
-            <div className="container">
-                teste
-            </div>
+            
         </div>
     </div>
     )
