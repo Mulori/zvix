@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./styles.css";
 import logo from "../../img/zvix-logo-white.svg";
 import validaCpfCnpj from "../../libs/ValidaCPFCNPJ";
+import {Navigate, useNavigate} from 'react-router-dom';
+import IsAuthenticated from "../../libs/Auth";
 
 function Login() {
   const [cpfcnpj, setCpfCnpj] = useState("");
@@ -9,6 +11,15 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const Navegacao = useNavigate();
+
+  if(IsAuthenticated()){
+    return(
+      <Navigate to="/" replace={true} />
+    );
+  }
+
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -33,7 +44,7 @@ function Login() {
       password === "230600"
     ) {
       localStorage.setItem("zvix_user_id", "123");
-      window.location.href = "../../App";
+      Navegacao("/");
     } else {
       ExibirMessagemErro("Uma ou mais credenciais estão inválidas.");
       return;
