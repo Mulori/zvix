@@ -8,3 +8,7 @@ body{
     background-repeat: no-repeat;
     background-attachment:fixed;
 }
+
+.nav-bar-color{
+    background-image: linear-gradient(to right top, #051937, #004d7a);
+}
