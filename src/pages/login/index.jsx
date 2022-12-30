@@ -4,6 +4,9 @@ import logo from "../../img/zvix-logo-color.svg";
 import validaCpfCnpj from "../../libs/ValidaCPFCNPJ";
 import {Navigate, useNavigate} from 'react-router-dom';
 import IsAuthenticated from "../../libs/Auth";
+import api from "../../controller/api";
+import md5 from 'md5';
+import RemoverFormatacao from "../../libs/RemoverFormatacao";
 
 function Login() {
   const [cpfcnpj, setCpfCnpj] = useState("");
@@ -18,7 +21,6 @@ function Login() {
       <Navigate to="/" replace={true} />
     );
   }
-
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -38,17 +40,25 @@ function Login() {
       return;
     }
 
-    if (
-      cpfcnpj === "10.510.658/0001-05" &&
-      username === "mulori" &&
-      password === "230600"
-    ) {
-      localStorage.setItem("zvix_user_id", "123");
-      Navegacao("/");
-    } else {
-      ExibirMessagemErro("Uma ou mais credenciais estão inválidas.");
-      return;
+    let json = {
+      cpf_cnpj: RemoverFormatacao(cpfcnpj.trim()),
+      nome_usuario: username.trim(),
+      senha: md5(password)
     }
+    
+    api.post("/api/v1/signin", json)
+      .then((response) => {
+        localStorage.setItem("zvix_codigo_usuario", response.data.conta.codigo);
+        localStorage.setItem("zvix_nome_usuario", response.data.conta.nome_usuario);
+        localStorage.setItem("zvix_tipo_usuario", response.data.conta.type);
+        localStorage.setItem("zvix_documento", json.cpf_cnpj);
+        localStorage.setItem("zvix_token", response.data.token);
+        Navegacao("/");
+      })
+      .catch((err) => {
+        ExibirMessagemErro(err.response.data)
+        return;
+      });
   }
 
   function ExibirMessagemErro(mensagem) {
