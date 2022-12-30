@@ -48,6 +48,7 @@ function Login() {
     
     api.post("/api/v1/signin", json)
       .then((response) => {
+        console.log(response.data.conta.codigo);
         localStorage.setItem("zvix_codigo_usuario", response.data.conta.codigo);
         localStorage.setItem("zvix_nome_usuario", response.data.conta.nome_usuario);
         localStorage.setItem("zvix_tipo_usuario", response.data.conta.type);
@@ -56,6 +57,7 @@ function Login() {
         Navegacao("/");
       })
       .catch((err) => {
+        console.log(err)
         ExibirMessagemErro(err.response.data)
         return;
       });
