@@ -1,9 +1,27 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";    
+import api from "../../controller/api";
 
 function Painel(){
     let navigate = useNavigate();
+
+    useEffect(() => {
+        VerificaToken();
+    }, [])
+    
+    function VerificaToken(){         
+        const zvix_access_token = localStorage.getItem("zvix_token");
+
+        api
+        .get("/api/v1/ok", { headers: { authorization: 'Bearer '.concat(zvix_access_token ? zvix_access_token : '')} })
+        .then(() => {
+            console.log('Autorizado')
+        })
+        .catch((erro) => {
+            Logout()
+        });
+    }
     
     function Logout(){
         localStorage.clear();
