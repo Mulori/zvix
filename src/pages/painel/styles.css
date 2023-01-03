@@ -9,6 +9,10 @@ body{
     background-attachment:fixed;
 }
 
+.bg-panel{
+    min-height: 100vh;
+}
+
 .nav-bar-color{
     background-image: linear-gradient(to right top, #051937, #004d7a);
 }

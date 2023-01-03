@@ -16,6 +16,8 @@ function Login() {
   const [message, setMessage] = useState("");
   const Navegacao = useNavigate();
 
+  StyleBody();
+
   if(IsAuthenticated()){
     return(
       <Navigate to="/" replace={true} />
@@ -72,84 +74,91 @@ function Login() {
     }, 3000);
   }
 
+  function StyleBody(){
+    document.body.style = 'background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);';
+    document.title = 'ZVIX | Login';
+  }
+
   return (
-    <div className="container-fluid body-login">
-      <div className="row" id="col-form">
-        <div className="col d-none d-md-block col-left"></div>
-        <div className="col d-flex flex-column col-form-login">
-          <div className="d-flex justify-content-between mx-auto">
-            <img className="img-logo" src={logo} />
-          </div>
-          <div className="container-form mx-auto w-100 p-5 h-50">
-            <form onSubmit={handleSubmit} method="POST">
-              <div className="form-group">
-                {!error ? null : (
-                  <div className="alert alert-danger" role="alert">
-                    {message}
-                  </div>
-                )}
-                <label id="title-form-login" style={{color: '#043f69', fontWeight: 'bold'}}>
-                  Acesso ao Painel
-                </label>
-                <input
-                  type="text"
-                  id="txtdoc"
-                  name="doc"
-                  className="form-control"
-                  required={true}
-                  aria-describedby="docHelp"
-                  placeholder="CPF/CNPJ"
-                  maxLength={18}
-                  value={cpfcnpj}
-                  onChange={(e) => setCpfCnpj(e.target.value)}
-                />
-              </div>
-              <div className="form-group mt-4">
-                <input
-                  type="text"
-                  id="txtusername"
-                  name="username"
-                  required={true}
-                  className="form-control"
-                  placeholder="Nome de Usuário"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-              <div className="form-group mt-4">
-                <input
-                  type="password"
-                  id="txtsenha"
-                  name="password"
-                  required={true}
-                  className="form-control"
-                  placeholder="Senha"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="row h-100">
-                <div className="col w-100 mt-3">
-                  <button
-                    className="btn w-100 btn-login"
-                    type="submit"
-                  >
-                    Acessar
-                  </button>
+    <div class="wrapper">
+      <div class="container-fluid body-login">
+        <div class="row" id="col-form">
+          <div class="col d-none d-md-block col-left"></div>
+          <div class="col d-flex flex-column col-form-login">
+            <div class="d-flex justify-content-between mx-auto">
+              <img class="img-logo" src={logo} />
+            </div>
+            <div class="container-form mx-auto w-100 p-5 h-50">
+              <form onSubmit={handleSubmit} method="POST">
+                <div class="form-group">
+                  {!error ? null : (
+                    <div class="alert alert-danger" role="alert">
+                      {message}
+                    </div>
+                  )}
+                  <label id="title-form-login" style={{color: '#043f69', fontWeight: 'bold'}}>
+                    Acesso ao Painel
+                  </label>
+                  <input
+                    type="text"
+                    id="txtdoc"
+                    name="doc"
+                    class="form-control"
+                    required={true}
+                    aria-describedby="docHelp"
+                    placeholder="CPF/CNPJ"
+                    maxLength={18}
+                    value={cpfcnpj}
+                    onChange={(e) => setCpfCnpj(e.target.value)}
+                  />
                 </div>
-              </div>
-            </form>
+                <div class="form-group mt-4">
+                  <input
+                    type="text"
+                    id="txtusername"
+                    name="username"
+                    required={true}
+                    class="form-control"
+                    placeholder="Nome de Usuário"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </div>
+                <div class="form-group mt-4">
+                  <input
+                    type="password"
+                    id="txtsenha"
+                    name="password"
+                    required={true}
+                    class="form-control"
+                    placeholder="Senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div class="row h-100">
+                  <div class="col w-100 mt-3">
+                    <button
+                      class="btn w-100 btn-login"
+                      type="submit"
+                    >
+                      Acessar
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="footer mx-auto p-1" style={{color: '#6c7489'}}>
+              © 2022 mgtech.com.br - Powered by:{" "}
+              <a href="http://mgtech.com.br">
+                <strong id="link-powered" style={{color: '#6c7489'}}>
+                  MG Tech
+                </strong>
+              </a>
+            </div>
           </div>
-          <div className="footer mx-auto p-1" style={{color: '#6c7489'}}>
-            © 2022 mgtech.com.br - Powered by:{" "}
-            <a href="http://mgtech.com.br">
-              <strong id="link-powered" style={{color: '#6c7489'}}>
-                MG Tech
-              </strong>
-            </a>
-          </div>
+          <div class="col d-none d-md-block col-right "></div>
         </div>
-        <div className="col d-none d-md-block col-right "></div>
       </div>
     </div>
   );
