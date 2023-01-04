@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
-import api from "../../controller/api";
-import MinhaConta from "./minhaConta";
+import api from "../../../controller/api";
 import $ from 'jquery';
 
 function Painel() {
@@ -41,10 +40,6 @@ function Painel() {
   function StyleBody() {
     document.body.style = "background: white;";
     document.title = "ZVIX | Painel";
-  }
-
-  function HandleMeuPerfil(){
-    setRender(MinhaConta);
   }
 
   return (
@@ -112,7 +107,7 @@ function Painel() {
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a class="dropdown-item " href="#" id="btn-meu-perfil" onClick={HandleMeuPerfil}>
+                    <a class="dropdown-item " href="#" id="btn-meu-perfil">
                       Meu Perfil
                     </a>
                   </li>

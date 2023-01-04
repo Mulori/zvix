@@ -1,0 +1,14 @@
+#label-title-page{
+    font-size: 25px;
+}
+
+.input-field:focus,
+.input-field:active {
+    border-color: #004d7a !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #004d7a !important;
+    outline: 0 none !important;
+}
+
+.card-background{
+    border-color: white;
+}
