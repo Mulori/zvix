@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./styles.css";
-import logo from "../../img/zvix-logo-color.svg";
-import validaCpfCnpj from "../../libs/ValidaCPFCNPJ";
+import logo from "../../../img/zvix-logo-color.svg";
+import validaCpfCnpj from "../../../libs/ValidaCPFCNPJ";
 import {Navigate, useNavigate} from 'react-router-dom';
-import IsAuthenticated from "../../libs/Auth";
-import api from "../../controller/api";
+import IsAuthenticated from "../../../libs/Auth";
+import api from "../../../controller/api";
 import md5 from 'md5';
-import RemoverFormatacao from "../../libs/RemoverFormatacao";
+import RemoverFormatacao from "../../../libs/RemoverFormatacao";
 
 function Login() {
   const [cpfcnpj, setCpfCnpj] = useState("");
@@ -54,6 +54,7 @@ function Login() {
         localStorage.setItem("zvix_codigo_usuario", response.data.conta.codigo);
         localStorage.setItem("zvix_nome_usuario", response.data.conta.nome_usuario);
         localStorage.setItem("zvix_tipo_usuario", response.data.conta.type);
+        localStorage.setItem("zvix_nome", response.data.conta.nome);
         localStorage.setItem("zvix_documento", json.cpf_cnpj);
         localStorage.setItem("zvix_token", response.data.token);
         Navegacao("/");
@@ -80,30 +81,30 @@ function Login() {
   }
 
   return (
-    <div class="wrapper">
-      <div class="container-fluid body-login">
-        <div class="row" id="col-form">
-          <div class="col d-none d-md-block col-left"></div>
-          <div class="col d-flex flex-column col-form-login">
-            <div class="d-flex justify-content-between mx-auto">
-              <img class="img-logo" src={logo} />
+    <div className="wrapper">
+      <div className="container-fluid body-login">
+        <div className="row" id="col-form">
+          <div className="col d-none d-md-block col-left"></div>
+          <div className="col d-flex flex-column col-form-login">
+            <div className="d-flex justify-content-between mx-auto">
+              <img className="img-logo" src={logo} />
             </div>
-            <div class="container-form mx-auto w-100 p-5 h-50">
+            <div className="container-form mx-auto w-100 p-5 h-50">
               <form onSubmit={handleSubmit} method="POST">
-                <div class="form-group">
+                <div className="form-group">
                   {!error ? null : (
-                    <div class="alert alert-danger" role="alert">
+                    <div className="alert alert-danger" role="alert">
                       {message}
                     </div>
                   )}
-                  <label id="title-form-login" style={{color: '#043f69', fontWeight: 'bold'}}>
+                  <label id="title-form-login" style={{color: 'white', fontWeight: 'bold'}}>
                     Acesso ao Painel
                   </label>
                   <input
                     type="text"
                     id="txtdoc"
                     name="doc"
-                    class="form-control"
+                    className="form-control input-field"
                     required={true}
                     aria-describedby="docHelp"
                     placeholder="CPF/CNPJ"
@@ -112,34 +113,34 @@ function Login() {
                     onChange={(e) => setCpfCnpj(e.target.value)}
                   />
                 </div>
-                <div class="form-group mt-4">
+                <div className="form-group mt-4">
                   <input
                     type="text"
                     id="txtusername"
                     name="username"
                     required={true}
-                    class="form-control"
+                    className="form-control input-field"
                     placeholder="Nome de Usuário"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
-                <div class="form-group mt-4">
+                <div className="form-group mt-4">
                   <input
                     type="password"
                     id="txtsenha"
                     name="password"
                     required={true}
-                    class="form-control"
+                    className="form-control input-field"
                     placeholder="Senha"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <div class="row h-100">
-                  <div class="col w-100 mt-3">
+                <div className="row h-100">
+                  <div className="col w-100 mt-3">
                     <button
-                      class="btn w-100 btn-login"
+                      className="btn w-100 btn-login"
                       type="submit"
                     >
                       Acessar
@@ -148,16 +149,16 @@ function Login() {
                 </div>
               </form>
             </div>
-            <div class="footer mx-auto p-1" style={{color: '#6c7489'}}>
-              © 2022 mgtech.com.br - Powered by:{" "}
+            <div className="footer mx-auto p-1 text-light" style={{color: '#6c7489'}}>
+              © 2023 zvix.com.br - Powered by:{" "}
               <a href="http://mgtech.com.br">
-                <strong id="link-powered" style={{color: '#6c7489'}}>
-                  MG Tech
+                <strong id="link-powered" className="text-light" style={{color: '#6c7489'}}>
+                  @murilogarcia23
                 </strong>
               </a>
             </div>
           </div>
-          <div class="col d-none d-md-block col-right "></div>
+          <div className="col d-none d-md-block col-right "></div>
         </div>
       </div>
     </div>
