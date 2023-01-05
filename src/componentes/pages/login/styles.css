@@ -26,8 +26,9 @@ html {
 }
 
 .btn-login{
-    background-color: #043f69;
+    background-color: transparent;
     color: #FFF;
+    border-color: white;
 }
 
 .btn :hover{

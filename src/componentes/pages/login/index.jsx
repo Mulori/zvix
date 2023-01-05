@@ -8,6 +8,10 @@ import api from "../../../controller/api";
 import md5 from 'md5';
 import RemoverFormatacao from "../../../libs/RemoverFormatacao";
 
+//React Toast
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Login() {
   const [cpfcnpj, setCpfCnpj] = useState("");
   const [username, setUsername] = useState("");
@@ -28,17 +32,17 @@ function Login() {
     e.preventDefault();
 
     if (!validaCpfCnpj(cpfcnpj)) {
-      ExibirMessagemErro("CPF ou CNPJ incorreto.");
+      notifyErro('CPF ou CNPJ incorreto.');
       return;
     }
 
     if (username.length <= 0) {
-      ExibirMessagemErro("Informe o nome de usuário.");
+      notifyErro('Informe o nome de usuário.')
       return;
     }
 
     if (password.length < 6) {
-      ExibirMessagemErro("A senha deve conter no minimo 6 caracteres.");
+      notifyErro('A senha deve conter no minimo 6 caracteres.')
       return;
     }
 
@@ -60,24 +64,28 @@ function Login() {
         Navegacao("/");
       })
       .catch((err) => {
-        console.log(err)
-        ExibirMessagemErro(err.response.data)
+        notifyErro(err.response.data)
         return;
       });
   }
 
-  function ExibirMessagemErro(mensagem) {
-    setMessage(mensagem);
-    setError(true);
-
-    setTimeout(() => {
-      setError(false);
-    }, 3000);
-  }
 
   function StyleBody(){
     document.body.style = 'background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);';
     document.title = 'ZVIX | Login';
+  }
+
+  const notifyErro = (e) => {
+      toast.error(e, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
   }
 
   return (
@@ -92,11 +100,6 @@ function Login() {
             <div className="container-form mx-auto w-100 p-5 h-50">
               <form onSubmit={handleSubmit} method="POST">
                 <div className="form-group">
-                  {!error ? null : (
-                    <div className="alert alert-danger" role="alert">
-                      {message}
-                    </div>
-                  )}
                   <label id="title-form-login" style={{color: 'white', fontWeight: 'bold'}}>
                     Acesso ao Painel
                   </label>
@@ -161,6 +164,7 @@ function Login() {
           <div className="col d-none d-md-block col-right "></div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
