@@ -11,7 +11,7 @@ function NavBar() {
         return navigate("/login");
     }
 
-    if(location.pathname !== '/login'){
+    if(location.pathname !== '/login' && location.pathname !== '/registre'){
         return (
             <div>
                 <nav className="navbar navbar-expand-lg" id="nav-bar">
