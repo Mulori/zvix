@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./styles.css";
 import logo from "../../../img/zvix-logo-color.svg";
 import validaCpfCnpj from "../../../libs/ValidaCPFCNPJ";
+import FormatarCNPJCNPJ from "../../../libs/FormataCPFCNPJ";
 import {Navigate, useNavigate} from 'react-router-dom';
 import IsAuthenticated from "../../../libs/Auth";
 import api from "../../../controller/api";
@@ -54,7 +55,6 @@ function Login() {
     
     api.post("/api/v1/signin", json)
       .then((response) => {
-        console.log(response.data.conta.codigo);
         localStorage.setItem("zvix_codigo_usuario", response.data.conta.codigo);
         localStorage.setItem("zvix_nome_usuario", response.data.conta.nome_usuario);
         localStorage.setItem("zvix_tipo_usuario", response.data.conta.type);
@@ -100,7 +100,7 @@ function Login() {
             <div className="container-form mx-auto w-100 p-5 h-50">
               <form onSubmit={handleSubmit} method="POST">
                 <div className="form-group">
-                  <label id="title-form-login" style={{color: 'white', fontWeight: 'bold'}}>
+                  <label id="title-form-login" style={{color: 'white', fontWeight: 'bold', fontFamily: 'sans-serif', fontSize: '25px'}}>
                     Acesso ao Painel
                   </label>
                   <input
@@ -112,7 +112,7 @@ function Login() {
                     aria-describedby="docHelp"
                     placeholder="CPF/CNPJ"
                     maxLength={18}
-                    value={cpfcnpj}
+                    value={FormatarCNPJCNPJ(cpfcnpj)}
                     onChange={(e) => setCpfCnpj(e.target.value)}
                   />
                 </div>
@@ -147,6 +147,15 @@ function Login() {
                       type="submit"
                     >
                       Acessar
+                    </button>
+                  </div>
+                  <div className="col w-100 mt-3">
+                    <button
+                      className="btn w-100 btn-login"
+                      type="button"
+                      onClick={() => {Navegacao("/registre")}}
+                    >
+                      Registrar-se
                     </button>
                   </div>
                 </div>

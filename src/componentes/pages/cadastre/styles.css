@@ -1,0 +1,53 @@
+html {
+    height: 100vh;
+}
+
+
+#col-form{
+    height: 100vh;
+    max-height: 100vh; 
+    min-height: 100vh;
+}
+
+.img-logo {
+    width: 200px;
+    height: 200px;
+}
+
+.wrapper{
+    
+    min-height: 100vh !important;
+    height: 100vh !important;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment:fixed;
+}
+
+.btn-login{
+    background-color: transparent;
+    color: #FFF;
+    border-color: white;
+}
+
+.btn :hover{
+    background-color: #a8eb12;
+}
+
+#link-powered{
+    text-decoration: none;
+}
+
+.input-field:focus,
+.input-field:active {
+    border-color: #004d7a !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #004d7a !important;
+    outline: 0 none !important;
+}
+
+.input-field {
+    background-color: '#051937'; 
+    border-color: '#051937';
+    color: 'white';
+}
