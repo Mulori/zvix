@@ -13,8 +13,9 @@ function MeuPerfil() {
     //Informações da Conta
     const [codigo, setCodigo] = useState('');
     const [nome, setNome] = useState('');
+    const [sobrenome, setSobrenome] = useState('');
+    const [email, setEmail] = useState('');
     const [nomeUsuario, setNomeUsuario] = useState('');
-    const [tipo, setTipo] = useState('');
     const [cadastrado, setCadastrado] = useState('');
     const [alterado, setAlterado] = useState('');
     const [senhaAntiga, setSenhaAntiga] = useState('');
@@ -43,7 +44,7 @@ function MeuPerfil() {
             confirmacaoSenhaNova: confirmaSenha.trim()
         }
 
-        api.put('/api/v1/conta/' + localStorage.getItem('zvix_codigo_usuario') + '/atualizarsenha', objJson, { headers: { Authorization: 'Bearer '.concat(localStorage.getItem('zvix_token')) } })
+        api.put('/api/v1/conta/' + localStorage.getItem('zvix_codigo') + '/atualizarsenha', objJson, { headers: { Authorization: 'Bearer '.concat(localStorage.getItem('zvix_token')) } })
         .then((e) => {
             GetConta();
             notifySucess(e.data)
@@ -56,12 +57,13 @@ function MeuPerfil() {
     }
 
     async function GetConta(){        
-        await api.get('/api/v1/conta/' + localStorage.getItem('zvix_codigo_usuario') + '', { headers: { Authorization: 'Bearer '.concat(localStorage.getItem('zvix_token')) } })
+        await api.get('/api/v1/conta/' + localStorage.getItem('zvix_codigo') + '', { headers: { Authorization: 'Bearer '.concat(localStorage.getItem('zvix_token')) } })
         .then((ret) => {
             setCodigo(ret.data.codigo);
             setNome(ret.data.nome);
+            setSobrenome(ret.data.sobrenome);
             setNomeUsuario(ret.data.nome_usuario);
-            setTipo(ret.data.type);
+            setEmail(ret.data.email);
             setCadastrado(ret.data.cadastrado);
             setAlterado(ret.data.alterado);
         })
@@ -78,11 +80,13 @@ function MeuPerfil() {
         }
 
         let objJson = {
-            nomeCompleto: nome.trim(),
+            nome: nome.trim(),
+            sobrenome: sobrenome.trim(),
+            email: email.trim(),
             nomeUsuario: nomeUsuario.trim()
         }
 
-        api.put('/api/v1/conta/' + localStorage.getItem('zvix_codigo_usuario') + '/atualizarinformacao', objJson, { headers: { Authorization: 'Bearer '.concat(localStorage.getItem('zvix_token')) } })
+        api.put('/api/v1/conta/' + localStorage.getItem('zvix_codigo') + '/atualizarinformacao', objJson, { headers: { Authorization: 'Bearer '.concat(localStorage.getItem('zvix_token')) } })
         .then((e) => {
             GetConta();
             notifySucess(e.data)
@@ -126,15 +130,35 @@ function MeuPerfil() {
             <div className="card-body">
                 <form method='POST' onSubmit={handleSubmitAlteraCadastro} className="container">
                 <div className="row">
-                    <div className="col-md-7 form-group mb-3">
+                    <div className="col-md-3 form-group mb-3">
                         <label
-                            for="inputEmail4"
+                            for="txt-nome"
                             className="form-label"
-                            placeholder="Nome Completo"
+                            placeholder="Nome"
                         >
-                            Nome Completo
+                            Nome
                         </label>
-                        <input type="text" className="form-control input-field" value={nome} maxLength={200} onChange={(e) => setNome(e.target.value)} id="txt-nome-completo" />
+                        <input type="text" className="form-control input-field" value={nome} maxLength={80} onChange={(e) => setNome(e.target.value)} id="txt-nome" />
+                    </div>
+                    <div className="col-md-3 form-group mb-3">
+                        <label
+                            for="txt-sobrenome"
+                            className="form-label"
+                            placeholder="Sobrenome"
+                        >
+                            Sobrenome
+                        </label>
+                        <input type="text" className="form-control input-field" value={sobrenome} maxLength={80} onChange={(e) => setSobrenome(e.target.value)} id="txt-sobrenome" />
+                    </div>
+                    <div className="col-md-4 form-group mb-3">
+                        <label
+                            for="txt-email"
+                            className="form-label"
+                            placeholder="Email"
+                        >
+                            E
+                        </label>
+                        <input type="email" className="form-control input-field" value={email} maxLength={200} onChange={(e) => setEmail(e.target.value)} id="txt-email" />
                     </div>
                     <div className="col-md-2 form-group mb-3">
                         <label for="inputAddress" className="form-label">
@@ -148,19 +172,6 @@ function MeuPerfil() {
                             onChange={(e) => setNomeUsuario(e.target.value)}
                             maxLength={50}
                             placeholder="Nome de Usuário"
-                        />
-                    </div>  
-                    <div className="col-md-3 form-group mb-3">
-                        <label for="inputAddress" className="form-label">
-                        Tipo de Conta
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control input-field"
-                            id="txt-nome-usuario"
-                            readOnly={true}
-                            value={tipo === '1' ? 'Administrador' : 'Padrão'}
-                            placeholder="Tipo de Conta"
                         />
                     </div>              
                 </div>
@@ -205,7 +216,7 @@ function MeuPerfil() {
             </form>
         </div>   
 
-        <Modal show={showModalAlteraSenha} onHide={handleCloseModalAlteraSenha} centered className="modal center" animation={false}>
+        <Modal show={showModalAlteraSenha} onHide={handleCloseModalAlteraSenha} centered className="modal center" animation={true}>
             <form onSubmit={handleSubmitAlteraSenha} method="POST">
                 <Modal.Header closeButton>
                     <Modal.Title>Alteração de Senha #{codigo}</Modal.Title>

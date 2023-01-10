@@ -1,24 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./styles.css";
 import logo from "../../../img/zvix-logo-color.svg";
-import validaCpfCnpj from "../../../libs/ValidaCPFCNPJ";
-import FormatarCNPJCNPJ from "../../../libs/FormataCPFCNPJ";
 import {Navigate, useNavigate} from 'react-router-dom';
 import IsAuthenticated from "../../../libs/Auth";
 import api from "../../../controller/api";
 import md5 from 'md5';
-import RemoverFormatacao from "../../../libs/RemoverFormatacao";
 
 //React Toast
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
-  const [cpfcnpj, setCpfCnpj] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
   const Navegacao = useNavigate();
 
   StyleBody();
@@ -32,13 +26,8 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!validaCpfCnpj(cpfcnpj)) {
-      notifyErro('CPF ou CNPJ incorreto.');
-      return;
-    }
-
-    if (username.length <= 0) {
-      notifyErro('Informe o nome de usuário.')
+    if (email.length <= 0) {
+      notifyErro('O e-mail é um campo obrigatório.')
       return;
     }
 
@@ -48,18 +37,17 @@ function Login() {
     }
 
     let json = {
-      cpf_cnpj: RemoverFormatacao(cpfcnpj.trim()),
-      nome_usuario: username.trim(),
-      senha: md5(password)
+      email: email.trim(),
+      senha: password.trim()
     }
     
     api.post("/api/v1/signin", json)
       .then((response) => {
-        localStorage.setItem("zvix_codigo_usuario", response.data.conta.codigo);
-        localStorage.setItem("zvix_nome_usuario", response.data.conta.nome_usuario);
-        localStorage.setItem("zvix_tipo_usuario", response.data.conta.type);
+        localStorage.setItem("zvix_codigo", response.data.conta.codigo);
         localStorage.setItem("zvix_nome", response.data.conta.nome);
-        localStorage.setItem("zvix_documento", json.cpf_cnpj);
+        localStorage.setItem("zvix_sobrenome", response.data.conta.sobrenome);
+        localStorage.setItem("zvix_nome_usuario", response.data.conta.nome_usuario);
+        localStorage.setItem("zvix_email", response.data.conta.email);
         localStorage.setItem("zvix_token", response.data.token);
         Navegacao("/");
       })
@@ -69,9 +57,8 @@ function Login() {
       });
   }
 
-
   function StyleBody(){
-    document.body.style = 'background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);';
+    document.body.style = 'background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12); background-repeat: no-repeat; background-size: cover; background-attachment:fixed;';
     document.title = 'ZVIX | Login';
   }
 
@@ -99,33 +86,18 @@ function Login() {
             </div>
             <div className="container-form mx-auto w-100 p-5 h-50">
               <form onSubmit={handleSubmit} method="POST">
-                <div className="form-group">
+                <div className="form-group mt-4">
                   <label id="title-form-login" style={{color: 'white', fontWeight: 'bold', fontFamily: 'sans-serif', fontSize: '25px'}}>
                     Acesso ao Painel
                   </label>
                   <input
                     type="text"
-                    id="txtdoc"
-                    name="doc"
-                    className="form-control input-field"
-                    required={true}
-                    aria-describedby="docHelp"
-                    placeholder="CPF/CNPJ"
-                    maxLength={18}
-                    value={FormatarCNPJCNPJ(cpfcnpj)}
-                    onChange={(e) => setCpfCnpj(e.target.value)}
-                  />
-                </div>
-                <div className="form-group mt-4">
-                  <input
-                    type="text"
-                    id="txtusername"
-                    name="username"
+                    id="txtEmail"
+                    name="email"
                     required={true}
                     className="form-control input-field"
-                    placeholder="Nome de Usuário"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="E-mail"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="form-group mt-4">

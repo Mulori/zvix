@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
 import logo from "../../../img/zvix-logo-color.svg";
-import FormatarCNPJCNPJ from "../../../libs/FormataCPFCNPJ";
 import { Navigate, useNavigate } from 'react-router-dom';
 import IsAuthenticated from "../../../libs/Auth";
 import api from "../../../controller/api";
@@ -11,13 +10,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Cadastre() {
-    const [cpfcnpj, setCpfCnpj] = useState("");
-    const [nomeOrganizacao, setNomeOrganizacao] = useState("");
-    const [nomeCompleto, setNomeCompleto] = useState("");
+    const [nome, setNome] = useState("");
+    const [sobrenome, setSobrenome] = useState("");
+    const [email, setEmail] = useState("");
     const [nomeUsuario, setNomeUsuario] = useState("");
     const [senha, setSenha] = useState("");
     const [confirmeSenha, setConfirmeSenha] = useState("");
-    const [tipo, settipo] = useState(1);
 
     const Navegacao = useNavigate();
 
@@ -32,18 +30,18 @@ function Cadastre() {
     function handleSubmit(e) {
         e.preventDefault();
 
-        if(nomeOrganizacao.length < 1){
-            notifyErro('Informe o nome de sua organização.');
+        if(nome.length < 1){
+            notifyErro('O campo nome é obrigatório.');
             return;
         }
 
-        if(cpfcnpj.length < 1){
-            notifyErro('Informe o CPF ou CNPJ.');
+        if(sobrenome.length < 1){
+            notifyErro('O campo sobrenome é obrigatório.');
             return;
         }
 
-        if(nomeCompleto.length < 1){
-            notifyErro('Informe seu nome completo.');
+        if(email.length < 1){
+            notifyErro('O campo e-mail é obrigatório.');
             return;
         }
 
@@ -73,23 +71,20 @@ function Cadastre() {
         }
 
         let json = {
-            cpfCnpj: cpfcnpj,
-            nomeOrganizacao: nomeOrganizacao.trim(),
-            nomeCompleto: nomeCompleto.trim(),
+            nome: nome.trim(),
+            sobrenome: sobrenome.trim(),
+            email: email.trim(),
             nomeUsuario: nomeUsuario.trim(),
             senha: senha.trim(),
-            tipoConta: "1"
         }
-
-        console.log(json)
 
         api.post('/api/v1/signup', json)
         .then((response) => {
-          localStorage.setItem("zvix_codigo_usuario", response.data.codigo);
-          localStorage.setItem("zvix_nome_usuario", response.data.nome_usuario);
-          localStorage.setItem("zvix_tipo_usuario", response.data.type);
-          localStorage.setItem("zvix_nome", response.data.nome);
-          localStorage.setItem("zvix_documento", json.cpf_cnpj);
+          localStorage.setItem("zvix_codigo", response.data.codigo);
+          localStorage.setItem("zvix_nome", json.nome.trim());
+          localStorage.setItem("zvix_sobrenome", json.sobrenome.trim());
+          localStorage.setItem("zvix_nome_usuario", json.nomeUsuario.trim());
+          localStorage.setItem("zvix_email", json.email.trim());
           localStorage.setItem("zvix_token", response.data.token);
           Navegacao("/");
         })
@@ -101,7 +96,7 @@ function Cadastre() {
 
 
     function StyleBody() {
-        document.body.style = 'background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);';
+        document.body.style = 'background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12); background-repeat: no-repeat; background-size: cover; background-attachment:fixed;';
         document.title = 'ZVIX | Registre-se';
     }
 
@@ -135,39 +130,37 @@ function Cadastre() {
                                 <div className="form-group">
                                     <input
                                         type="text"
-                                        id="txtNomeOrganizacao"
-                                        name="NomeOrganizacao"
+                                        id="txtNome"
+                                        name="nome"
                                         className="form-control input-field"
                                         required={true}
-                                        placeholder="Informe o nome de sua organização"
-                                        maxLength={150}
-                                        onChange={(e) => setNomeOrganizacao(e.target.value)}
+                                        placeholder="Seu nome"
+                                        maxLength={80}
+                                        onChange={(e) => setNome(e.target.value)}
                                     />
                                 </div>
                                 <div className="form-group mt-3">
                                     <input
                                         type="text"
-                                        id="txtdoc"
-                                        name="doc"
+                                        id="txtSobrenome"
+                                        name="sobrenome"
                                         className="form-control input-field"
                                         required={true}
-                                        aria-describedby="docHelp"
-                                        placeholder="Informe o CPF/CNPJ de sua organização"
-                                        maxLength={18}
-                                        value={FormatarCNPJCNPJ(cpfcnpj)}
-                                        onChange={(e) => setCpfCnpj(e.target.value)}
+                                        placeholder="Seu sobrenome"
+                                        maxLength={80}
+                                        onChange={(e) => setSobrenome(e.target.value)}
                                     />
                                 </div>
                                 <div className="form-group mt-3">
                                     <input
-                                        type="text"
-                                        id="txtNomeCompleto"
-                                        name="nomeCompleto"
+                                        type="email"
+                                        id="txtEmail"
+                                        name="email"
                                         required={true}
                                         maxLength={200}
                                         className="form-control input-field"
-                                        placeholder="Informe seu nome completo"
-                                        onChange={(e) => setNomeCompleto(e.target.value)}
+                                        placeholder="Seu melhor e-mail"
+                                        onChange={(e) => setEmail(e.target.value)}
                                     />
                                 </div>
                                 <div className="form-group mt-3">
