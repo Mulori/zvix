@@ -34,26 +34,25 @@ function NavBar() {
                                     <Link class="nav-link active text-light link-nav" aria-current="page" to="/"><i class="fa fa-home" aria-hidden="true"></i>{" "}Inicio</Link>
                                 </li>
                                 <li className="nav-item dropdown">
-                                    <Link
+                                    <ul
                                         className="nav-link dropdown-toggle text-light link-nav"
                                         role="button"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
-                                        to="/ferramentas"
                                     >
                                         <i className="fa fa-wrench" aria-hidden="true"></i>{" "}
                                         Ferramentas
-                                    </Link>
+                                    </ul>
                                     <ul className="dropdown-menu">
                                         <li>
-                                            <Link className="dropdown-item link-nav" to="/contas">
-                                                Usuários
+                                            <Link className="dropdown-item link-nav" to="/minhaOrganizacao">
+                                                Minha Organizações
                                             </Link>
                                         </li>
                                         <li className="dropdown-divider"></li>
                                         <li>
-                                            <Link className="dropdown-item link-nav" to="/organizacoes">
-                                                Empresas
+                                            <Link className="dropdown-item link-nav" to="/colaboracoes">
+                                                Colaborações
                                             </Link>
                                         </li>
                                     </ul>
