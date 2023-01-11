@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import logo from '../../../img/zvix-logo-color.svg';
 import './styles.css';
  
 function Inicio(){  

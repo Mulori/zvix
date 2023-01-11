@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./styles.css";
 import logo from "../../../img/zvix-logo-color.svg";
-import {Navigate, useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate, Link} from 'react-router-dom';
 import IsAuthenticated from "../../../libs/Auth";
 import api from "../../../controller/api";
 import md5 from 'md5';
@@ -121,25 +121,18 @@ function Login() {
                       Acessar
                     </button>
                   </div>
-                  <div className="col w-100 mt-3">
-                    <button
-                      className="btn w-100 btn-login"
-                      type="button"
-                      onClick={() => {Navegacao("/registre")}}
-                    >
-                      Registrar-se
-                    </button>
+                </div>
+                <div className="row">
+                  <div className="col-12 d-flex justify-content-center mt-3 w-100">
+                    <label className="form-label text-light">Ainda não tem conta? <Link to="/registre" className="btn-registrar-conta">Clique Aqui</Link></label>
                   </div>
                 </div>
               </form>
             </div>
-            <div className="footer mx-auto p-1 text-light" style={{color: '#6c7489'}}>
-              © 2023 zvix.com.br - Powered by:{" "}
-              <a href="http://mgtech.com.br">
-                <strong id="link-powered" className="text-light" style={{color: '#6c7489'}}>
-                  @murilogarcia23
-                </strong>
-              </a>
+            <div className="footer mx-auto p-1 text-light d-flex justify-content-center" style={{color: '#6c7489'}}>
+                <div className="col-12 d-flex justify-content-center mt-3 w-100">
+                  <label className="form-label text-light">© 2023 zvix.com.br - Powered by: <a href="http://mgtech.com.br" className="link-site-hashtag">@murilogarcia23</a></label>
+                </div>
             </div>
           </div>
           <div className="col d-none d-md-block col-right "></div>

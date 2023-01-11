@@ -29,7 +29,7 @@ function NavBar() {
                             <span className="navbar-toggler-icon "></span>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0 mr-0">
                                 <li class="nav-item">
                                     <Link class="nav-link active text-light link-nav" aria-current="page" to="/"><i class="fa fa-home" aria-hidden="true"></i>{" "}Inicio</Link>
                                 </li>
@@ -71,6 +71,12 @@ function NavBar() {
                                         <li>
                                             <Link className="dropdown-item link-nav" to="/perfil" id="btn-meu-perfil">
                                                 Meu Perfil
+                                            </Link>
+                                        </li>
+                                        <li className="dropdown-divider"></li>
+                                        <li>
+                                            <Link className="dropdown-item link-nav" to="/perfil" id="btn-meu-perfil">
+                                                Meu Plano
                                             </Link>
                                         </li>
                                         <li className="dropdown-divider"></li>
