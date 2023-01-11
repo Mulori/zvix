@@ -156,7 +156,7 @@ function MeuPerfil() {
                             className="form-label"
                             placeholder="Email"
                         >
-                            E
+                            E-mail
                         </label>
                         <input type="email" className="form-control input-field" value={email} maxLength={200} onChange={(e) => setEmail(e.target.value)} id="txt-email" />
                     </div>

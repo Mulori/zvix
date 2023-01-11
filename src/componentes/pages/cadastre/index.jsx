@@ -200,21 +200,21 @@ function Cadastre() {
                                     />
                                 </div>
                                 <div className="row h-100">
-                                    <div className="col w-100 mt-3">
-                                        <button
-                                            className="btn w-100 btn-login"
-                                            type="submit"
-                                        >
-                                            Registrar-se
-                                        </button>
-                                    </div>
-                                    <div className="col w-100 mt-3">
+                                 <div className="col w-100 mt-3">
                                         <button
                                             className="btn w-100 btn-login"
                                             type="submit"
                                             onClick={() => {Navegacao(-1)}}
                                         >
                                             Já possuo uma conta
+                                        </button>
+                                    </div>
+                                    <div className="col w-100 mt-3">
+                                        <button
+                                            className="btn w-100 btn-login"
+                                            type="submit"
+                                        >
+                                            Registrar-se
                                         </button>
                                     </div>
                                 </div>
