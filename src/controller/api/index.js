@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://node.zvix.tech",
+  baseURL: "http://127.0.0.1:8182/",
 });
 
 export default api;
