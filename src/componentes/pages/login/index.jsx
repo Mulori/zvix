@@ -41,15 +41,9 @@ function Login() {
       senha: password.trim()
     }
     
-    api.post("/api/v1/signin", json)
+    api.post("/campanha/registra/acesso", json)
       .then((response) => {
-        localStorage.setItem("zvix_codigo", response.data.conta.codigo);
-        localStorage.setItem("zvix_nome", response.data.conta.nome);
-        localStorage.setItem("zvix_sobrenome", response.data.conta.sobrenome);
-        localStorage.setItem("zvix_nome_usuario", response.data.conta.nome_usuario);
-        localStorage.setItem("zvix_email", response.data.conta.email);
-        localStorage.setItem("zvix_token", response.data.token);
-        Navegacao("/");
+        console.log(response.data)
       })
       .catch((err) => {
         notifyErro(err.response.data)
